@@ -1,0 +1,36 @@
+# Logs
+*.log
+
+# Archives
+*.tar
+*.tar.gz
+*.zip
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# Ansible
+*.retry
+
+# Python
+__pycache__/
+*.pyc
+
+# Environment
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Temporary
+*.swp
+*.tmp
+
+# Backup outputs
+backups/
