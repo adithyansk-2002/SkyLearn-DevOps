@@ -1,0 +1,28 @@
+---
+# Users
+admin_user: devopsadmin
+admin_group: devops
+
+developer_user: developer
+developer_group: development
+
+student_user: student
+student_group: students
+
+# Directories
+skylearn_root: /opt/skylearn
+backup_dir: /opt/skylearn/backups
+config_dir: /opt/skylearn/configs
+scripts_dir: /opt/skylearn/scripts
+logs_dir: /opt/skylearn/logs
+
+# Packages
+web_package: nginx
+utility_package: tree
+
+# Services
+web_service: nginx
+firewall_service: firewalld
+
+# Permissions
+default_mode: "0755"

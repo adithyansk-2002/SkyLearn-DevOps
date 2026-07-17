@@ -1,0 +1,17 @@
+---
+- name: Test Variables
+  hosts: control
+
+  tasks:
+
+    - name: Display admin user
+      debug:
+        msg: "Admin user is {{ admin_user }}"
+
+    - name: Display web package
+      debug:
+        msg: "Web package is {{ web_package }}"
+
+    - name: Display root directory
+      debug:
+        msg: "Root directory is {{ skylearn_root }}"

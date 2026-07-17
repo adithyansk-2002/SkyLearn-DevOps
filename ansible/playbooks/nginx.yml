@@ -1,0 +1,21 @@
+---
+- name: Configure Nginx Web Server
+  hosts: control
+  become: true
+
+  tasks:
+
+    - name: Ensure nginx is installed
+      package:
+        name: nginx
+        state: present
+
+    - name: Enable nginx service
+      service:
+        name: nginx
+        enabled: true
+
+    - name: Ensure nginx is running
+      service:
+        name: nginx
+        state: started
