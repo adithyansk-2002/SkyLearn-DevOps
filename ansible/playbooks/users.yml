@@ -1,0 +1,44 @@
+---
+- name: Manage SkyLearn Users
+  hosts: control
+  become: true
+
+  tasks:
+
+    - name: Ensure devops group exists
+      group:
+        name: devops
+        state: present
+
+    - name: Ensure development group exists
+      group:
+        name: development
+        state: present
+
+    - name: Ensure students group exists
+      group:
+        name: students
+        state: present
+
+    - name: Ensure devopsadmin exists
+      user:
+        name: devopsadmin
+        group: devops
+        groups: wheel
+        append: true
+        shell: /bin/bash
+        state: present
+
+    - name: Ensure developer exists
+      user:
+        name: developer
+        group: development
+        shell: /bin/bash
+        state: present
+
+    - name: Ensure student exists
+      user:
+        name: student
+        group: students
+        shell: /bin/bash
+        state: present

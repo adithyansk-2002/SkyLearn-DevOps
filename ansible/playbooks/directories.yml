@@ -1,0 +1,46 @@
+---
+- name: Create SkyLearn Directory Structure
+  hosts: control
+  become: true
+
+  tasks:
+
+    - name: Create /opt/skylearn
+      file:
+        path: /opt/skylearn
+        state: directory
+        owner: devopsadmin
+        group: devops
+        mode: '0755'
+
+    - name: Create configs directory
+      file:
+        path: /opt/skylearn/configs
+        state: directory
+        owner: devopsadmin
+        group: devops
+        mode: '0755'
+
+    - name: Create logs directory
+      file:
+        path: /opt/skylearn/logs
+        state: directory
+        owner: devopsadmin
+        group: devops
+        mode: '0755'
+
+    - name: Create scripts directory
+      file:
+        path: /opt/skylearn/scripts
+        state: directory
+        owner: devopsadmin
+        group: devops
+        mode: '0755'
+
+    - name: Create backups directory
+      file:
+        path: /opt/skylearn/backups
+        state: directory
+        owner: devopsadmin
+        group: devops
+        mode: '0755'
