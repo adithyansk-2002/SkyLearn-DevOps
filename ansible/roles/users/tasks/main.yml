@@ -1,0 +1,38 @@
+---
+- name: Ensure devops group exists
+  group:
+    name: "{{ admin_group }}"
+    state: present
+
+- name: Ensure development group exists
+  group:
+    name: "{{ developer_group }}"
+    state: present
+
+- name: Ensure students group exists
+  group:
+    name: "{{ student_group }}"
+    state: present
+
+- name: Ensure admin user exists
+  user:
+    name: "{{ admin_user }}"
+    group: "{{ admin_group }}"
+    groups: wheel
+    append: true
+    shell: /bin/bash
+    state: present
+
+- name: Ensure developer user exists
+  user:
+    name: "{{ developer_user }}"
+    group: "{{ developer_group }}"
+    shell: /bin/bash
+    state: present
+
+- name: Ensure student user exists
+  user:
+    name: "{{ student_user }}"
+    group: "{{ student_group }}"
+    shell: /bin/bash
+    state: present

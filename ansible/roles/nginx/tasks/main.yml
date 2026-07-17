@@ -1,0 +1,24 @@
+---
+- name: Ensure nginx is installed
+  package:
+    name: "{{ web_package }}"
+    state: present
+
+- name: Enable nginx service
+  service:
+    name: "{{ web_service }}"
+    enabled: true
+
+- name: Ensure nginx is running
+  service:
+    name: "{{ web_service }}"
+    state: started
+
+- name: Deploy SkyLearn homepage
+  template:
+    src: index.html.j2
+    dest: /usr/share/nginx/html/index.html
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart nginx

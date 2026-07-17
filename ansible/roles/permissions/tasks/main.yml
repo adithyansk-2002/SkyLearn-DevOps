@@ -1,0 +1,17 @@
+---
+- name: Set ownership of SkyLearn root
+  file:
+    path: "{{ skylearn_root }}"
+    owner: "{{ admin_user }}"
+    group: "{{ admin_group }}"
+    state: directory
+
+- name: Set permissions on SkyLearn root
+  file:
+    path: "{{ skylearn_root }}"
+    mode: "{{ default_mode }}"
+
+- name: Ensure backup script is executable
+  file:
+    path: "{{ scripts_dir }}/backup.sh"
+    mode: "0755"

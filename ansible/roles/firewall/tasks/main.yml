@@ -1,0 +1,22 @@
+---
+- name: Ensure firewalld is installed
+  package:
+    name: "{{ firewall_service }}"
+    state: present
+
+- name: Enable firewalld
+  service:
+    name: "{{ firewall_service }}"
+    enabled: true
+
+- name: Start firewalld
+  service:
+    name: "{{ firewall_service }}"
+    state: started
+
+- name: Allow HTTP service
+  ansible.posix.firewalld:
+    service: http
+    permanent: true
+    state: enabled
+    immediate: true

@@ -1,0 +1,40 @@
+---
+- name: Create SkyLearn root directory
+  file:
+    path: "{{ skylearn_root }}"
+    state: directory
+    owner: "{{ admin_user }}"
+    group: "{{ admin_group }}"
+    mode: "{{ default_mode }}"
+
+- name: Create configs directory
+  file:
+    path: "{{ config_dir }}"
+    state: directory
+    owner: "{{ admin_user }}"
+    group: "{{ admin_group }}"
+    mode: "{{ default_mode }}"
+
+- name: Create logs directory
+  file:
+    path: "{{ logs_dir }}"
+    state: directory
+    owner: "{{ admin_user }}"
+    group: "{{ admin_group }}"
+    mode: "{{ default_mode }}"
+
+- name: Create scripts directory
+  file:
+    path: "{{ scripts_dir }}"
+    state: directory
+    owner: "{{ admin_user }}"
+    group: "{{ admin_group }}"
+    mode: "{{ default_mode }}"
+
+- name: Create backups directory
+  file:
+    path: "{{ backup_dir }}"
+    state: directory
+    owner: "{{ admin_user }}"
+    group: "{{ admin_group }}"
+    mode: "{{ default_mode }}"

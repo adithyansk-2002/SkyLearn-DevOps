@@ -1,0 +1,10 @@
+---
+- name: Install utility package
+  package:
+    name: "{{ utility_package }}"
+    state: present
+
+- name: Install web package
+  package:
+    name: "{{ web_package }}"
+    state: present
