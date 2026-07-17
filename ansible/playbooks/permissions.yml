@@ -1,0 +1,24 @@
+---
+- name: Configure SkyLearn Permissions
+  hosts: control
+  become: true
+
+  tasks:
+
+    - name: Set ownership of /opt/skylearn
+      file:
+        path: /opt/skylearn
+        owner: devopsadmin
+        group: devops
+        recurse: yes
+
+    - name: Set permissions on /opt/skylearn
+      file:
+        path: /opt/skylearn
+        mode: '0755'
+        recurse: yes
+
+    - name: Ensure backup script is executable
+      file:
+        path: /opt/skylearn/scripts/backup.sh
+        mode: '0755'
