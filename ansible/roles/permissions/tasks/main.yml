@@ -10,8 +10,3 @@
   file:
     path: "{{ skylearn_root }}"
     mode: "{{ default_mode }}"
-
-- name: Ensure backup script is executable
-  file:
-    path: "{{ scripts_dir }}/backup.sh"
-    mode: "0755"

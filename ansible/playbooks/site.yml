@@ -1,12 +1,13 @@
 ---
 - name: Configure SkyLearn Infrastructure
-  hosts: control
+  hosts: webservers
   become: true
 
   roles:
     - packages
     - users
     - directories
+    - scripts
     - permissions
     - nginx
     - firewall

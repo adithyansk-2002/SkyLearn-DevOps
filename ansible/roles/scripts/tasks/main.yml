@@ -1,0 +1,8 @@
+---
+- name: Deploy backup script
+  copy:
+    src: backup.sh
+    dest: "{{ scripts_dir }}/backup.sh"
+    owner: "{{ admin_user }}"
+    group: "{{ admin_group }}"
+    mode: "0755"
