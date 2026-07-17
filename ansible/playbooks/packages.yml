@@ -1,0 +1,16 @@
+---
+- name: Install Required Packages
+  hosts: control
+  become: true
+
+  tasks:
+
+    - name: Install tree package
+      package:
+        name: tree
+        state: present
+
+    - name: Install nginx
+      package:
+        name: nginx
+        state: present
