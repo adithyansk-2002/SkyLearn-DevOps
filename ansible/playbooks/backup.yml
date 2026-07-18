@@ -1,0 +1,13 @@
+---
+- name: Run SkyLearn Backup
+  hosts: webservers
+  become: true
+
+  tasks:
+    - name: Execute backup script
+      command: /opt/skylearn/scripts/backup.sh
+      register: backup_result
+
+    - name: Show backup output
+      debug:
+        var: backup_result.stdout_lines

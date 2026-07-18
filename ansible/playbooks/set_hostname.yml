@@ -1,0 +1,15 @@
+---
+- name: Set hostnames
+  hosts: webservers
+  become: true
+
+  tasks:
+    - name: Set hostname for web1
+      hostname:
+        name: skylearn-web-01
+      when: inventory_hostname == "web1"
+
+    - name: Set hostname for web2
+      hostname:
+        name: skylearn-web-02
+      when: inventory_hostname == "web2"

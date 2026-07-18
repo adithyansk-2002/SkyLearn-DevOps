@@ -15,6 +15,7 @@ SOURCE_DIR="/opt/skylearn"
 BACKUP_DIR="/opt/skylearn/backups"
 LOG_FILE="/opt/skylearn/logs/backup.log"
 RETENTION_DAYS=7
+S3_BUCKET="skylearn-backups-adithyan-902734532014-ap-south-1-an"
 
 TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 BACKUP_NAME="skylearn_backup_${TIMESTAMP}.tar.gz"
@@ -75,6 +76,30 @@ create_backup() {
 }
 
 ########################
+# Upload Backup to S3
+########################
+
+upload_to_s3() {
+
+    echo
+    echo "Uploading backup to S3..."
+
+    if aws s3 cp "$BACKUP_DIR/$BACKUP_NAME" "s3://$S3_BUCKET/"; then
+
+        echo -e "${GREEN}Backup uploaded to S3 successfully.${RESET}"
+        log "S3 UPLOAD SUCCESS : $BACKUP_NAME"
+
+    else
+
+        echo -e "${RED}Failed to upload backup to S3.${RESET}"
+        log "S3 UPLOAD FAILED : $BACKUP_NAME"
+        exit 1
+
+    fi
+
+}
+
+########################
 # Cleanup Old Backups
 ########################
 
@@ -99,6 +124,8 @@ backup_summary() {
     echo "Backup Location : $BACKUP_DIR/$BACKUP_NAME"
 
     ls -lh "$BACKUP_DIR/$BACKUP_NAME"
+    echo
+    echo "S3 Bucket : s3://$S3_BUCKET/$BACKUP_NAME"
 
 }
 
@@ -113,6 +140,8 @@ main() {
     log "Backup Started"
 
     create_backup
+
+    upload_to_s3
 
     cleanup_backups
 

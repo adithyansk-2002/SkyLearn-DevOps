@@ -9,5 +9,6 @@
     - directories
     - scripts
     - permissions
+    - hostname
     - nginx
     - firewall
