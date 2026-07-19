@@ -1,0 +1,50 @@
+services:
+
+  database:
+    image: mariadb:11.4
+    container_name: skylearn-db
+
+    restart: unless-stopped
+
+    environment:
+      MARIADB_ROOT_PASSWORD: rootpassword
+      MARIADB_DATABASE: skylearn
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - db_data:/var/lib/mysql
+      - ../../app/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  backend:
+    build:
+      context: ../../app/backend
+
+    container_name: skylearn-backend
+
+    restart: unless-stopped
+
+    ports:
+      - "5000:5000"
+
+    depends_on:
+      - database
+
+  frontend:
+     build:
+       context: ../..
+       dockerfile: app/frontend/Dockerfile
+
+     container_name: skylearn-frontend
+
+     restart: unless-stopped
+
+     ports:
+       - "80:80"
+
+     depends_on:
+       - backend
+
+volumes:
+  db_data:

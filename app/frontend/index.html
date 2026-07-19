@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyLearn DevOps Dashboard</title>
+<style>
+:root{
+--bg:#0f172a;--card:#1e293b;--border:#334155;--text:#f8fafc;
+--muted:#94a3b8;--accent:#38bdf8;--good:#22c55e;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+.container{max-width:1280px;margin:auto;padding:40px 24px}
+h1{font-size:3rem;color:var(--accent)}
+.subtitle{margin-top:8px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px;margin-top:32px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.card h2{color:var(--accent);margin-bottom:18px}
+.row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)}
+.row:last-child{border:none}
+.label{color:#cbd5e1}
+.value{font-weight:600}
+.good{color:var(--good)}
+.full{grid-column:1/-1}
+.metric{margin:18px 0}
+.bar{height:10px;background:#334155;border-radius:99px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#38bdf8,#0ea5e9);transition:width .8s}
+.percent{float:right;color:var(--muted)}
+.endpoint{font-family:Consolas,monospace;background:#0b1220;padding:10px;border-radius:8px;margin:8px 0}
+footer{text-align:center;color:#64748b;padding:30px}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>SkyLearn DevOps Dashboard</h1>
+<p class="subtitle">Docker • AWS • GitHub Actions • Flask • MariaDB</p>
+
+<div class="grid">
+
+<div class="card">
+<h2>Application</h2>
+<div class="row"><span class="label">Status</span><span id="health" class="value good">Loading...</span></div>
+<div class="row"><span class="label">Version</span><span id="version" class="value">Loading...</span></div>
+<div class="row"><span class="label">Environment</span><span class="value">Development</span></div>
+<div class="row"><span class="label">API</span><span class="value good">Online</span></div>
+</div>
+
+<div class="card">
+<h2>Deployment</h2>
+<div class="row"><span class="label">Pipeline</span><span class="value">GitHub Actions</span></div>
+<div class="row"><span class="label">Build</span><span class="value">Loading...</span></div>
+<div class="row"><span class="label">Commit</span><span class="value">Loading...</span></div>
+<div class="row"><span class="label">Last Deploy</span><span class="value">Loading...</span></div>
+</div>
+
+<div class="card">
+<h2>Containers</h2>
+<div class="row"><span class="label">Frontend</span><span class="value good">🟢 Running</span></div>
+<div class="row"><span class="label">Backend</span><span class="value good">🟢 Running</span></div>
+<div class="row"><span class="label">Database</span><span class="value good">🟢 Running</span></div>
+<div class="row"><span class="label">Hostname</span><span id="hostname" class="value">Loading...</span></div>
+<div class="row"><span class="label">Platform</span><span id="platform" class="value">Loading...</span></div>
+</div>
+
+<div class="card">
+<h2>Host</h2>
+<div class="row"><span class="label">Operating System</span><span class="value">Amazon Linux 2023</span></div>
+<div class="row"><span class="label">Kernel</span><span class="value">Loading...</span></div>
+<div class="row"><span class="label">Python</span><span class="value">Loading...</span></div>
+<div class="row"><span class="label">Docker</span><span class="value">Loading...</span></div>
+<div class="row"><span class="label">Compose</span><span class="value">Loading...</span></div>
+</div>
+
+<div class="card full">
+<h2>System Metrics</h2>
+<div class="metric">CPU <span class="percent" id="cpuv">Loading...</span><div class="bar"><div id="cpu" class="fill"></div></div></div>
+<div class="metric">Memory <span class="percent" id="memv">Loading...</span><div class="bar"><div id="mem" class="fill"></div></div></div>
+<div class="metric">Disk <span class="percent" id="diskv">Loading...</span><div class="bar"><div id="disk" class="fill"></div></div></div>
+<div class="row"><span class="label">Uptime</span><span class="value">Loading...</span></div>
+</div>
+
+<div class="card full">
+<h2>API Endpoints</h2>
+<div class="endpoint">GET /api/health</div>
+<div class="endpoint">GET /api/server</div>
+<div class="endpoint">GET /api/version</div>
+<div class="endpoint">GET /api/status (Coming Soon)</div>
+</div>
+
+</div>
+
+<footer>Powered by AWS EC2 • Docker • Docker Compose • Flask • MariaDB • GitHub Actions</footer>
+</div>
+
+<script>
+fetch("/api/health").then(r=>r.json()).then(d=>{
+document.getElementById("health").textContent="🟢 "+d.status;
+});
+fetch("/api/server").then(r=>r.json()).then(d=>{
+hostname.textContent=d.hostname;
+platform.textContent=d.platform;
+});
+fetch("/api/version").then(r=>r.json()).then(d=>{
+version.textContent=d.version;
+});
+["cpu","mem","disk"].forEach((id,i)=>{
+const vals=[35,52,24];
+document.getElementById(id).style.width=vals[i]+"%";
+document.getElementById(id+"v").textContent="Live metrics coming soon";
+});
+</script>
+</body>
+</html>
+
