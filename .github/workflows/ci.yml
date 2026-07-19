@@ -59,8 +59,7 @@ jobs:
             --syntax-check
 
       - name: Lint YAML Files
-        run: |
-          yamllint .
+        run: yamllint -c .yamllint .
 
       - name: Verify Shell Scripts
         run: |
