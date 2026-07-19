@@ -105,7 +105,6 @@ jobs:
           echo " SkyLearn Docker Build Passed "
           echo "======================================="
 
-          
   deploy:
     name: Deploy to EC2
     needs: docker-build
