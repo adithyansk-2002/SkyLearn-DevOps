@@ -75,3 +75,32 @@ jobs:
           echo "======================================="
           echo " SkyLearn Repository Validation Passed "
           echo "======================================="
+
+
+  docker-build:
+    name: Build Docker Images
+    needs: validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Backend Image
+        run: docker build -t skylearn-backend ./app/backend
+
+      - name: Build Frontend Image
+        run: docker build -f app/frontend/Dockerfile -t skylearn-frontend .
+
+      - name: Validate Docker Compose
+        working-directory: docker/compose
+        run: docker compose config
+
+      - name: Docker Build Passed
+        run: |
+          echo "======================================="
+          echo " SkyLearn Docker Build Passed "
+          echo "======================================="
