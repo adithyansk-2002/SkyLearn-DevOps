@@ -32,19 +32,19 @@ services:
       - database
 
   frontend:
-     build:
-       context: ../..
-       dockerfile: app/frontend/Dockerfile
+    build:
+      context: ../..
+      dockerfile: app/frontend/Dockerfile
 
-     container_name: skylearn-frontend
+    container_name: skylearn-frontend
 
-     restart: unless-stopped
+    restart: unless-stopped
 
-     ports:
-       - "80:80"
+    ports:
+      - "80:80"
 
-     depends_on:
-       - backend
+    depends_on:
+      - backend
 
 volumes:
   db_data:
