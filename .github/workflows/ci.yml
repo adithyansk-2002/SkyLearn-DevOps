@@ -128,3 +128,9 @@ jobs:
             cd docker/compose
 
             docker compose up --build -d
+
+            echo "Waiting for application..."
+
+            sleep 10
+
+            curl -f http://localhost/api/health
