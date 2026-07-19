@@ -23,6 +23,47 @@ The project emphasizes:
 
 ---
 
+## AWS Architecture
+
+SkyLearn is deployed on AWS using a highly available and scalable architecture.
+
+### Infrastructure Components
+
+- Custom VPC
+- Public & Private Subnets across 2 Availability Zones
+- Internet Gateway
+- NAT Gateway
+- Security Groups & Network ACLs
+- Application Load Balancer
+- EC2 Auto Scaling Group
+- Launch Templates
+- Golden AMI
+- Amazon Route 53
+- Amazon S3 (Automated Backups)
+- Amazon CloudWatch
+- Amazon SNS
+- IAM Roles & Policies
+
+```
+User
+ │
+ ▼
+Route 53
+ │
+ ▼
+Application Load Balancer
+ │
+ ├─────────────┐
+ ▼             ▼
+EC2 (AZ1)   EC2 (AZ2)
+ │             │
+ └──────┬──────┘
+        ▼
+     S3 Backups
+
+CloudWatch → SNS Email Alerts
+```
+---
 # Technologies
 
 - Amazon Linux 2023
@@ -75,6 +116,32 @@ terraform/
 - [x] Firewalld Configuration
 - [x] Nginx Deployment
 - [x] Bash Backup Automation
+
+## Phase 2 – Infrastructure Automation
+- [x] Ansible Roles
+- [x] Inventory Management
+- [x] Multi-node Deployment
+- [x] Infrastructure as Code
+
+## Phase 3 – AWS Infrastructure
+- [x] Custom VPC
+- [x] Public & Private Subnets
+- [x] NAT Gateway
+- [x] Application Load Balancer
+- [x] EC2 Auto Scaling Group
+- [x] Launch Templates
+- [x] Golden AMI
+- [x] S3 Automated Backups
+- [x] CloudWatch Monitoring
+- [x] SNS Alerts
+- [x] IAM Roles & Policies
+
+## Phase 4 – Version Control
+- [x] Git Repository
+- [x] GitHub Remote
+- [x] Pull Requests
+- [x] Branching Strategy
+- [x] Merge Workflow
 
 ---
 
