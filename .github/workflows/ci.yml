@@ -106,26 +106,26 @@ jobs:
           echo "======================================="
 
           
-    deploy:
-      name: Deploy to EC2
-      needs: docker-build
-      runs-on: ubuntu-latest
+  deploy:
+    name: Deploy to EC2
+    needs: docker-build
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: Deploy via SSH
-          uses: appleboy/ssh-action@v1.2.0
-          with:
-            host: ${{ secrets.EC2_HOST }}
-            username: ${{ secrets.EC2_USER }}
-            key: ${{ secrets.EC2_SSH_KEY }}
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
 
-            script: |
-              set -e
+          script: |
+            set -e
 
-              cd /home/devopsadmin/SkyLearn-DevOps
+            cd /home/devopsadmin/SkyLearn-DevOps
 
-              git pull origin main
+            git pull origin main
 
-              cd docker/compose
+            cd docker/compose
 
-              docker compose up --build -d
+            docker compose up --build -d
