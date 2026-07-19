@@ -1,0 +1,77 @@
+name: SkyLearn CI
+
+on:
+  push:
+    branches:
+      - main
+      - "feature/**"
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    name: Validate Repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Verify Repository Structure
+        run: |
+          test -f README.md
+          test -f LICENSE
+
+          test -d ansible
+          test -d app
+          test -d assets
+          test -d aws
+          test -d cicd
+          test -d docker
+          test -d docs
+          test -d kubernetes
+          test -d monitoring
+          test -d scripts
+          test -d terraform
+
+      - name: Verify Ansible Structure
+        run: |
+          test -f ansible/ansible.cfg
+          test -f ansible/inventories/hosts.ini
+          test -d ansible/inventories/group_vars
+          test -d ansible/inventories/host_vars
+          test -d ansible/playbooks
+          test -d ansible/roles
+          test -f ansible/playbooks/site.yml
+
+      - name: Install Ansible and yamllint
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ansible yamllint
+
+      - name: Ansible Syntax Check
+        run: |
+          ansible-playbook \
+            -i ansible/inventories/hosts.ini \
+            ansible/playbooks/site.yml \
+            --syntax-check
+
+      - name: Lint YAML Files
+        run: |
+          yamllint .
+
+      - name: Verify Shell Scripts
+        run: |
+          find . -type f -name "*.sh" -exec test -x {} \;
+
+      - name: Show Git Information
+        run: |
+          git status
+          git log --oneline -5
+
+      - name: CI Passed
+        run: |
+          echo "======================================="
+          echo " SkyLearn Repository Validation Passed "
+          echo "======================================="
