@@ -51,10 +51,11 @@ jobs:
           sudo apt-get install -y ansible yamllint
 
       - name: Ansible Syntax Check
+        working-directory: ansible
         run: |
           ansible-playbook \
-            -i ansible/inventories/hosts.ini \
-            ansible/playbooks/site.yml \
+            -i inventories/hosts.ini \
+            playbooks/site.yml \
             --syntax-check
 
       - name: Lint YAML Files
