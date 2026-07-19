@@ -101,7 +101,9 @@ jobs:
         with:
           context: ./app/backend
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/skylearn-backend:latest
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/skylearn-backend:latest
+            ghcr.io/${{ github.repository_owner }}/skylearn-backend:${{ github.sha }}
 
       - name: Build and Push Frontend Image
         uses: docker/build-push-action@v6
@@ -109,7 +111,9 @@ jobs:
           context: .
           file: app/frontend/Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/skylearn-frontend:latest
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/skylearn-frontend:latest
+            ghcr.io/${{ github.repository_owner }}/skylearn-frontend:${{ github.sha }}
 
       - name: Validate Docker Compose
         working-directory: docker/compose
