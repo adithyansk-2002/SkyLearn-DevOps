@@ -18,8 +18,7 @@ services:
       - ../../app/database/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   backend:
-    build:
-      context: ../../app/backend
+    image: ghcr.io/adithyansk-2002/skylearn-backend:latest
 
     container_name: skylearn-backend
 
@@ -32,9 +31,7 @@ services:
       - database
 
   frontend:
-    build:
-      context: ../..
-      dockerfile: app/frontend/Dockerfile
+    image: ghcr.io/adithyansk-2002/skylearn-frontend:latest
 
     container_name: skylearn-frontend
 
