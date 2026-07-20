@@ -42,7 +42,10 @@ footer{text-align:center;color:#64748b;padding:30px}
 <h2>Application</h2>
 <div class="row"><span class="label">Status</span><span id="health" class="value good">Loading...</span></div>
 <div class="row"><span class="label">Version</span><span id="version" class="value">Loading...</span></div>
-<div class="row"><span class="label">Environment</span><span class="value">Development</span></div>
+<div class="row">
+    <span class="label">Environment</span>
+    <span id="environment" class="value">Loading...</span>
+</div>
 <div class="row"><span class="label">API</span><span class="value good">Online</span></div>
 </div>
 
@@ -93,21 +96,39 @@ footer{text-align:center;color:#64748b;padding:30px}
 </div>
 
 <script>
-fetch("/api/health").then(r=>r.json()).then(d=>{
-document.getElementById("health").textContent="🟢 "+d.status;
+
+const health = document.getElementById("health");
+const version = document.getElementById("version");
+const environment = document.getElementById("environment");
+const hostname = document.getElementById("hostname");
+const platform = document.getElementById("platform");
+
+fetch("/api/health")
+.then(r => r.json())
+.then(d => {
+    health.textContent = "🟢 " + d.status;
 });
-fetch("/api/server").then(r=>r.json()).then(d=>{
-hostname.textContent=d.hostname;
-platform.textContent=d.platform;
+
+fetch("/api/server")
+.then(r => r.json())
+.then(d => {
+    hostname.textContent = d.hostname;
+    platform.textContent = d.platform;
 });
-fetch("/api/version").then(r=>r.json()).then(d=>{
-version.textContent=d.version;
+
+fetch("/api/version")
+.then(r => r.json())
+.then(d => {
+    version.textContent = d.version;
+    environment.textContent = d.environment;
 });
+
 ["cpu","mem","disk"].forEach((id,i)=>{
-const vals=[35,52,24];
-document.getElementById(id).style.width=vals[i]+"%";
-document.getElementById(id+"v").textContent="Live metrics coming soon";
+    const vals=[35,52,24];
+    document.getElementById(id).style.width=vals[i]+"%";
+    document.getElementById(id+"v").textContent="Live metrics coming soon";
 });
+
 </script>
 <footer>
   CI/CD Pipeline Implemented ✅
