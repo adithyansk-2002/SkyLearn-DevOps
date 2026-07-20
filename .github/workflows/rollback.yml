@@ -21,4 +21,20 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
 
           script: |
-            echo "Rollback requested for version: ${{ github.event.inputs.version }}"
+            set -e
+
+            cd /home/devopsadmin/SkyLearn-DevOps/docker/compose
+
+            export IMAGE_TAG=${{ github.event.inputs.image_tag }}
+
+            echo "Rolling back to image tag: $IMAGE_TAG"
+
+            docker compose pull
+
+            docker compose up -d
+
+            echo "Waiting for application..."
+
+            sleep 10
+
+            curl -f http://localhost/api/health
