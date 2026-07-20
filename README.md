@@ -332,7 +332,7 @@ SkyLearn-DevOps/
 
 # Documentation
 
-Detailed implementation guides, commands, troubleshooting steps, and architecture documentation are available in the **docs/** directory.
+Detailed implementation guides, commands, troubleshooting steps, and architecture documentation will be available in the **docs/** directory.
 
 ---
 
@@ -340,9 +340,7 @@ Detailed implementation guides, commands, troubleshooting steps, and architectur
 
 **Adithyan Suresh Kumar**
 
-Cloud & DevOps Engineer
-
-GitHub: https://github.com/adithyansk-2002
+Cloud & DevOps Enthusiast
 
 ---
 
