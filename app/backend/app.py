@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify
 from flask_cors import CORS
 import socket
@@ -34,8 +35,8 @@ def server():
 @app.route("/version")
 def version():
     return jsonify({
-        "version": "1.0.0",
-        "environment": "Development"
+        "version": os.getenv("APP_VERSION"),
+        "environment": os.getenv("APP_ENV")
     })
 
 
