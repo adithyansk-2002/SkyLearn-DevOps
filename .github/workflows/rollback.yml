@@ -25,11 +25,11 @@ jobs:
 
             cd /home/devopsadmin/SkyLearn-DevOps/docker/compose
 
-            echo "Rolling back to image tag: $IMAGE_TAG"
+            echo "Rolling back to image tag: ${{ github.event.inputs.version }}"
 
-            IMAGE_TAG=${{ github.event.inputs.image_tag }} docker compose pull
+            IMAGE_TAG=${{ github.event.inputs.version }} docker compose pull
 
-            IMAGE_TAG=${{ github.event.inputs.image_tag }} docker compose up -d --force-recreate
+            IMAGE_TAG=${{ github.event.inputs.version }} docker compose up -d --force-recreate
 
             echo "Waiting for application..."
 
