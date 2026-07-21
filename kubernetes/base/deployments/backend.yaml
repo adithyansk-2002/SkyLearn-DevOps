@@ -32,6 +32,8 @@ spec:
             - configMapRef:
                 name: backend-config
 
+            - secretRef:
+                name: backend-secret
           readinessProbe:
             httpGet:
               path: /health
@@ -47,3 +49,12 @@ spec:
 
             initialDelaySeconds: 15
             periodSeconds: 10
+
+          volumeMounts:
+            - name: backend-storage
+              mountPath: /data
+
+      volumes:
+        - name: backend-storage
+          persistentVolumeClaim:
+            claimName: backend-pvc

@@ -7,11 +7,15 @@ resources:
   - namespace.yaml
 
   - configmaps/backend-config.yaml
+  - secrets/backend-secret.yaml
 
   - deployments/backend.yaml
   - deployments/frontend.yaml
 
   - services/backend-service.yaml
   - services/frontend-service.yaml
+
+  - persistent-volumes/backend-pv.yaml
+  - persistent-volumes/backend-pvc.yaml
 
   - ingress/frontend-ingress.yaml
