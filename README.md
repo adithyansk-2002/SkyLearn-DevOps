@@ -295,17 +295,19 @@ SkyLearn-DevOps/
 - [x] Ingress Configuration
 - [x] Application Scaling
 
-## Upcoming Phases
+---
 
 ### Phase 8 – Infrastructure as Code
 
-- [ ] Terraform
-- [ ] AWS Resource Provisioning
-- [ ] Modular Infrastructure Design
-- [ ] State Management
-- [ ] Reusable Infrastructure Modules
+- [x] Terraform
+- [x] AWS Resource Provisioning
+- [x] Modular Infrastructure Design
+- [x] State Management
+- [x] Reusable Infrastructure Modules
 
 ---
+
+## Upcoming Phases
 
 ### Phase 9 – Monitoring & Logging
 
