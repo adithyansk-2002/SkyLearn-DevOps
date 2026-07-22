@@ -55,6 +55,7 @@ services:
 
     volumes:
       - ../../monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ../../monitoring/prometheus/rules:/etc/prometheus/rules:ro
 
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
@@ -125,6 +126,22 @@ services:
       - /dev/disk:/dev/disk:ro
 
     privileged: true
+
+  alertmanager:
+    image: prom/alertmanager:v0.28.1
+
+    container_name: alertmanager
+
+    restart: unless-stopped
+
+    ports:
+      - "9093:9093"
+
+    command:
+      - "--config.file=/etc/alertmanager/alertmanager.yml"
+
+    volumes:
+      - ../../monitoring/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
 
 volumes:
   db_data:

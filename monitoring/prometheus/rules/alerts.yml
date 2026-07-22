@@ -1,0 +1,48 @@
+groups:
+  - name: infrastructure-alerts
+
+    rules:
+
+      - alert: PrometheusDown
+        expr: up{job="prometheus"} == 0
+        for: 1m
+
+        labels:
+          severity: critical
+
+        annotations:
+          summary: "Prometheus is down"
+          description: "Prometheus has been unreachable for more than 1 minute."
+
+      - alert: NodeExporterDown
+        expr: up{job="node-exporter"} == 0
+        for: 1m
+
+        labels:
+          severity: critical
+
+        annotations:
+          summary: "Node Exporter is down"
+          description: "Node Exporter has been unreachable for more than 1 minute."
+
+      - alert: HighCPUUsage
+        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 2m
+
+        labels:
+          severity: warning
+
+        annotations:
+          summary: "High CPU Usage"
+          description: "CPU usage has exceeded 80% for more than 2 minutes."
+
+      - alert: HighMemoryUsage
+        expr: ((node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes) * 100 > 90
+        for: 2m
+
+        labels:
+          severity: warning
+
+        annotations:
+          summary: "High Memory Usage"
+          description: "Memory usage has exceeded 90% for more than 2 minutes."
