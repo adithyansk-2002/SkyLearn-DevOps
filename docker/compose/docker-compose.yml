@@ -42,7 +42,7 @@ services:
 
     depends_on:
       - backend
-  
+ 
   prometheus:
     image: prom/prometheus:v3.5.0
 
