@@ -107,6 +107,25 @@ services:
     volumes:
       - "/:/host:ro,rslave"
 
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.52.1
+
+    container_name: cadvisor
+
+    restart: unless-stopped
+
+    ports:
+      - "8080:8080"
+
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+      - /dev/disk:/dev/disk:ro
+
+    privileged: true
+
 volumes:
   db_data:
   grafana_data:
