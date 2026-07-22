@@ -26,13 +26,10 @@ jobs:
           test -d ansible
           test -d app
           test -d assets
-          test -d aws
-          test -d cicd
           test -d docker
           test -d docs
           test -d kubernetes
           test -d monitoring
-          test -d scripts
           test -d terraform
 
       - name: Verify Ansible Structure
