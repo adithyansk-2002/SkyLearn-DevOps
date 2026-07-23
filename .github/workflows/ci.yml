@@ -154,7 +154,7 @@ jobs:
             kubectl rollout status deployment/frontend -n skylearn
 
             echo "Verifying backend..."
-            
+
             kubectl run healthcheck \
             --rm -i \
             --restart=Never \
