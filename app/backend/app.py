@@ -2,11 +2,22 @@ import os
 from flask import Flask, jsonify
 from flask_cors import CORS
 import socket
+import subprocess
+import platform
 from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)
 
+def run_command(command):
+    try:
+        return subprocess.check_output(
+            command,
+            shell=True,
+            text=True
+        ).strip()
+    except Exception:
+        return "Unavailable"
 
 @app.route("/")
 def home():
@@ -39,6 +50,28 @@ def version():
         "environment": os.getenv("APP_ENV")
     })
 
+@app.route("/system")
+def system():
+
+    os_name = "Unknown"
+
+    try:
+        with open("/etc/os-release") as f:
+            for line in f:
+                if line.startswith("PRETTY_NAME="):
+                    os_name = line.split("=")[1].strip().replace('"', "")
+                    break
+    except Exception:
+        pass
+
+    return jsonify({
+        "os": os_name,
+        "kernel": platform.release(),
+        "python": run_command("python3 --version"),
+        "docker": run_command("docker --version"),
+        "hostname": socket.gethostname(),
+        "uptime": run_command("uptime -p")
+    })
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
