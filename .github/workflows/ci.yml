@@ -156,10 +156,11 @@ jobs:
             echo "Verifying backend..."
 
             kubectl run healthcheck \
+            --namespace skylearn \
             --rm -i \
             --restart=Never \
             --image=curlimages/curl:latest \
-            -- curl -fsS http://backend:5000/health
+            -- curl -fsS http://backend.skylearn.svc.cluster.local:5000/health
 
             echo "Backend verification successful."
 
