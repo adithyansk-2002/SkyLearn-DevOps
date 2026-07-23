@@ -19,8 +19,7 @@ spec:
   rules:
     - host: skylearn.duckdns.org
       http:
-        paths:
-          
+        paths: 
           - path: /api
             pathType: Prefix
             backend:
