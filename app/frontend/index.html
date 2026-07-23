@@ -51,10 +51,27 @@ footer{text-align:center;color:#64748b;padding:30px}
 
 <div class="card">
 <h2>Deployment</h2>
-<div class="row"><span class="label">Pipeline</span><span class="value">GitHub Actions</span></div>
-<div class="row"><span class="label">Build</span><span class="value">Loading...</span></div>
-<div class="row"><span class="label">Commit</span><span class="value">Loading...</span></div>
-<div class="row"><span class="label">Last Deploy</span><span class="value">Loading...</span></div>
+
+<div class="row">
+<span class="label">Pipeline</span>
+<span class="value">GitHub Actions</span>
+</div>
+
+<div class="row">
+<span class="label">Registry</span>
+<span class="value">GHCR</span>
+</div>
+
+<div class="row">
+<span class="label">Deployment</span>
+<span class="value">Kubernetes</span>
+</div>
+
+<div class="row">
+<span class="label">Strategy</span>
+<span class="value good">Rolling Update</span>
+</div>
+
 </div>
 
 <div class="card">
@@ -68,19 +85,30 @@ footer{text-align:center;color:#64748b;padding:30px}
 
 <div class="card">
 <h2>Host</h2>
-<div class="row"><span class="label">Operating System</span><span class="value">Amazon Linux 2023</span></div>
-<div class="row"><span class="label">Kernel</span><span class="value">Loading...</span></div>
-<div class="row"><span class="label">Python</span><span class="value">Loading...</span></div>
-<div class="row"><span class="label">Docker</span><span class="value">Loading...</span></div>
-<div class="row"><span class="label">Compose</span><span class="value">Loading...</span></div>
+<div class="row">
+<span class="label">Operating System</span>
+<span id="os" class="value">Loading...</span>
 </div>
 
-<div class="card full">
-<h2>System Metrics</h2>
-<div class="metric">CPU <span class="percent" id="cpuv">Loading...</span><div class="bar"><div id="cpu" class="fill"></div></div></div>
-<div class="metric">Memory <span class="percent" id="memv">Loading...</span><div class="bar"><div id="mem" class="fill"></div></div></div>
-<div class="metric">Disk <span class="percent" id="diskv">Loading...</span><div class="bar"><div id="disk" class="fill"></div></div></div>
-<div class="row"><span class="label">Uptime</span><span class="value">Loading...</span></div>
+<div class="row">
+<span class="label">Kernel</span>
+<span id="kernel" class="value">Loading...</span>
+</div>
+
+<div class="row">
+<span class="label">Python</span>
+<span id="python" class="value">Loading...</span>
+</div>
+
+<div class="row">
+<span class="label">Container</span>
+<span class="value">Kubernetes Pod</span>
+</div>
+
+<div class="row">
+<span class="label">Namespace</span>
+<span class="value">skylearn</span>
+</div>
 </div>
 
 <div class="card full">
@@ -102,6 +130,20 @@ const version = document.getElementById("version");
 const environment = document.getElementById("environment");
 const hostname = document.getElementById("hostname");
 const platform = document.getElementById("platform");
+const os = document.getElementById("os");
+const kernel = document.getElementById("kernel");
+const python = document.getElementById("python");
+
+fetch("/api/system")
+.then(r => r.json())
+.then(d => {
+    hostname.textContent = d.hostname;
+    platform.textContent = "Kubernetes Pod";
+
+    os.textContent = d.os;
+    kernel.textContent = d.kernel;
+    python.textContent = d.python;
+});
 
 fetch("/api/health")
 .then(r => r.json())
