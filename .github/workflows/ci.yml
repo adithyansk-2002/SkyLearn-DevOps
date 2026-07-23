@@ -123,7 +123,7 @@ jobs:
           echo "======================================="
 
   deploy:
-    name: Deploy to EC2
+    name: Deploy to Kubernetes
     needs: docker-build
     runs-on: ubuntu-latest
 
@@ -142,14 +142,27 @@ jobs:
 
             git pull origin main
 
-            cd docker/compose
+            echo "Restarting Kubernetes deployments..."
 
-            docker compose pull
+            kubectl rollout restart deployment/backend -n skylearn
+            kubectl rollout restart deployment/frontend -n skylearn
 
-            docker compose up -d
+            echo "Waiting for backend rollout..."
+            kubectl rollout status deployment/backend -n skylearn
 
-            echo "Waiting for application..."
+            echo "Waiting for frontend rollout..."
+            kubectl rollout status deployment/frontend -n skylearn
 
-            sleep 10
+            echo "Verifying backend..."
+            
+            kubectl run healthcheck \
+            --rm -i \
+            --restart=Never \
+            --image=curlimages/curl:latest \
+            -- curl -fsS http://backend:5000/health
 
-            curl -f http://localhost/api/health
+            echo "Backend verification successful."
+
+            echo "======================================="
+            echo " Kubernetes Deployment Successful "
+            echo "======================================="
